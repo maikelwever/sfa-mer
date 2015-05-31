@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+ <project path="device/htc/pyramid" name="Team-Hydra/android_device_htc_pyramid" revision="cm-10.1" />
+ <project path="device/htc/msm8660-common" name="Team-Hydra/android_device_htc_msm8660-common" revision="cm-10.1" />
+ <project path="kernel/htc/msm8660" name="maikelwever/android_kernel_htc_msm8660" revision="cm-10.1" />
+ <project path="vendor/htc" name="Team-Hydra/android_vendor_htc" revision="cm-10.1" />
+
+ <project path="prebuilt/linux-x86/toolchain/linaro-arm-cortex-a8" name="maikelwever/linaro-arm-cortex-a8" revision="cm-10.1" />
+
+ <project path="hardware/qcom/display-legacy" name="Team-Hydra/android_hardware_qcom_display-legacy" revision="cm-10.1" />
+ <project path="hardware/qcom/gps-legacy" name="Team-Hydra/android_hardware_qcom_gps-legacy" revision="cm-10.1" />
+ <project path="hardware/qcom/media-legacy" name="Team-Hydra/android_hardware_qcom_media-legacy" revision="cm-10.1" />
+ <project path="packages/apps/CMWimaxSettings" name="Team-Hydra/android_packages_apps_CMWimaxSettings" revision="cm-10.1" />
+</manifest>
+
