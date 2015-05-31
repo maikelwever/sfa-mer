@@ -14,28 +14,33 @@ source "$TOOLDIR/utility-functions.inc"
 mchapter "4.3"
 sudo zypper -n install android-tools createrepo zip || die
 
-source ~/.hadk.env
-minfo "setting up ubuntu chroot"
-UBUNTU_CHROOT="$MER_ROOT/sdks/ubuntu"
-mkdir -p "$UBUNTU_CHROOT"
+grep $(hostname) "$UBUNTU_CHROOT/etc/hosts"
+if [ $? -ne 0 ]; then
+	source ~/.hadk.env
+	minfo "setting up ubuntu chroot"
+	UBUNTU_CHROOT="$MER_ROOT/sdks/ubuntu"
+	mkdir -p "$UBUNTU_CHROOT"
 
-mchapter "4.4.1"
-pushd "$MER_ROOT"
-TARBALL=ubuntu-trusty-android-rootfs.tar.bz2
-[ -f $TARBALL  ] || curl -O http://img.merproject.org/images/mer-hybris/ubu/$TARBALL
-minfo "untaring ubuntu..."
-[ -f ${TARBALL}.untarred ] || sudo tar --numeric-owner -xjf $TARBALL -C "$UBUNTU_CHROOT" || die
-touch ${TARBALL}.untarred
+	mchapter "4.4.1"
+	pushd "$MER_ROOT"
+	TARBALL=ubuntu-trusty-android-rootfs.tar.bz2
+	[ -f $TARBALL  ] || sudo curl -O http://img.merproject.org/images/mer-hybris/ubu/$TARBALL
+	minfo "untaring ubuntu..."
+	[ -f ${TARBALL}.untarred ] || sudo tar --numeric-owner -xjf $TARBALL -C "$UBUNTU_CHROOT" || die
+	touch ${TARBALL}.untarred
 
-mchapter "4.4.2"
-grep $(hostname) "$UBUNTU_CHROOT/etc/hosts" || sudo sh -c "echo 127.0.0.2 $(hostname) >> \"$UBUNTU_CHROOT/etc/hosts\""
+	mchapter "4.4.2"
+	grep $(hostname) "$UBUNTU_CHROOT/etc/hosts" || sudo sh -c "echo 127.0.0.2 $(hostname) >> \"$UBUNTU_CHROOT/etc/hosts\""
 
-popd
+	popd
 
-cd ${TOOLDIR}
-# replace the shoddy ubu-chroot script
-sudo cp $TOOLDIR/ubu-chroot-fixed-cmd-mode `which ubu-chroot` || die
-sudo chmod +x `which ubu-chroot` || die
+	cd ${TOOLDIR}
+	# replace the shoddy ubu-chroot script
+	sudo cp $TOOLDIR/ubu-chroot-fixed-cmd-mode `which ubu-chroot` || die
+	sudo chmod +x `which ubu-chroot` || die
+else
+	echo "ubuntu chroot already set-up"
+fi
 
 minfo "diving into ubuntu chroot"
 ubu-chroot -r "$MER_ROOT/sdks/ubuntu" `pwd`/task-ubu.sh || die
