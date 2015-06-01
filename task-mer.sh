@@ -14,14 +14,14 @@ source "$TOOLDIR/utility-functions.inc"
 mchapter "4.3"
 sudo zypper -n install android-tools createrepo zip || die
 
+source ~/.hadk.env
 grep $(hostname) "$UBUNTU_CHROOT/etc/hosts"
 if [ $? -ne 0 ]; then
-	source ~/.hadk.env
-	minfo "setting up ubuntu chroot"
-	UBUNTU_CHROOT="$MER_ROOT/sdks/ubuntu"
 	mkdir -p "$UBUNTU_CHROOT"
 
+	minfo "setting up ubuntu chroot"
 	mchapter "4.4.1"
+	UBUNTU_CHROOT="$MER_ROOT/sdks/ubuntu"
 	pushd "$MER_ROOT"
 	TARBALL=ubuntu-trusty-android-rootfs.tar.bz2
 	[ -f $TARBALL  ] || sudo curl -O http://img.merproject.org/images/mer-hybris/ubu/$TARBALL
@@ -40,6 +40,7 @@ if [ $? -ne 0 ]; then
 	sudo chmod +x `which ubu-chroot` || die
 else
 	echo "ubuntu chroot already set-up"
+	UBUNTU_CHROOT="$MER_ROOT/sdks/ubuntu"
 fi
 
 minfo "diving into ubuntu chroot"
@@ -49,7 +50,9 @@ minfo "done ubuntu"
 mchapter "6. sb2 setup"
 ./sb-setup.sh || die
 
-./ahal.sh || die
+if [ -z "$SKIP_HAL" ]; then
+	./ahal.sh || die
+fi
 
 ./build-img.sh || die
 
