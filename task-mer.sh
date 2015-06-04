@@ -15,6 +15,7 @@ mchapter "4.3"
 sudo zypper -n install android-tools createrepo zip || die
 
 source ~/.hadk.env
+UBUNTU_CHROOT="$MER_ROOT/sdks/ubuntu"
 grep $(hostname) "$UBUNTU_CHROOT/etc/hosts"
 if [ $? -ne 0 ]; then
 	mkdir -p "$UBUNTU_CHROOT"

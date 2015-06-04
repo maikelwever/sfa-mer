@@ -16,7 +16,7 @@ source ~/.hadk.env
 
 # install software in chroot
 minfo "install additional tools for ubuntu chroot"
-sudo apt-get install -y unzip bsdmainutils
+sudo apt-get install -y unzip bsdmainutils lzop
 
 mkdir -p ~/bin
 [ -f ~/bin/repo ] || curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo

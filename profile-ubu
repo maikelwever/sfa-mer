@@ -1,2 +1,4 @@
 export PS1="HABUILD_SDK [\${DEVICE}] $PS1"
 source ~/.hadk.env
+function hadk() { source $HOME/.hadk.env${1:+.$1}; echo "Env setup for $DEVICE"; }
+hadk

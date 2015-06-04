@@ -43,15 +43,28 @@ minfo "Building packages (this will take some time)"
 sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-install ssu domain sales
 sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-install ssu dr sdk
 sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-install zypper ref
-sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-install zypper --no-interactive install droid-hal-$DEVICE-devel
+sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-install zypper install droid-hal-$DEVICE-devel
 
 mkdir -p $MER_ROOT/devel/mer-hybris
 cd $MER_ROOT/devel/mer-hybris
+
+PKG=libhybris
+SPEC=$PKG
+git clone https://github.com/mer-hybris/$PKG.git
+cd $PKG
+mb2 -s rpm/$SPEC.spec -t $VENDOR-$DEVICE-armv7hl build
+mkdir -p $ANDROID_ROOT/droid-local-repo/$DEVICE/$PKG/
+rm -f $ANDROID_ROOT/droid-local-repo/$DEVICE/$PKG/*.rpm
+mv RPMS/*.rpm $ANDROID_ROOT/droid-local-repo/$DEVICE/$PKG
+createrepo $ANDROID_ROOT/droid-local-repo/$DEVICE
+sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-install zypper ref
+sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-build zypper rm mesa-llvmpipe
 
 function makepkg {
 	unset PKG
 	unset SPEC
 	unset OTHER_RANDOM_NAME
+	GITHUB_GROUP="mer-hybris"
 
 	if [ "$1" ]; then
 		PKG=$1
@@ -64,9 +77,12 @@ function makepkg {
 	if [ "$3" ]; then
 		OTHER_RANDOM_NAME=$3
 	fi
+	if [ "$4" ]; then
+		GITHUB_GROUP=$4
+	fi
 	
 	cd $MER_ROOT/devel/mer-hybris
-	git clone https://github.com/mer-packages/$PKG.git
+	git clone https://github.com/$GITHUB_GROUP/$PKG.git
 	cd $PKG
 	mb2 -s rpm/$SPEC.spec -t $VENDOR-$DEVICE-armv7hl build
 	mkdir -p $ANDROID_ROOT/droid-local-repo/$DEVICE/$PKG/
@@ -77,22 +93,11 @@ function makepkg {
 }
 
 makepkg "libhybris"
-sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-build zypper rm mesa-llvmpipe
 
 makepkg "qt5-qpa-hwcomposer-plugin"
-makepkg "sensorfw" "sensorfw-qt5-hybris" "hybris-libsensorfw-gt5"
+makepkg "sensorfw" "sensorfw-qt5-hybris" "hybris-libsensorfw-gt5" "mer-packages"
 makepkg "ngfd-plugin-droid-vibrator"
 makepkg "qt5-feedback-haptics-droid-vibrator"
 makepkg "pulseaudio-modules-droid"
 makepkg "qtscenegraph-adaptation" "qtscenegraph-adaptation-droid"
-
-PKG=mce-plugin-libhybris
-cd $MER_ROOT/devel/mer-hybris
-git clone https://github.com/nemomobile/$PKG.git
-cd $PKG
-mb2 -s rpm/$SPEC.spec -t $VENDOR-$DEVICE-armv7hl build
-mkdir -p $ANDROID_ROOT/droid-local-repo/$DEVICE/$PKG/
-rm -f $ANDROID_ROOT/droid-local-repo/$DEVICE/$PKG/*.rpm
-mv RPMS/*.rpm $ANDROID_ROOT/droid-local-repo/$DEVICE/$PKG
-createrepo $ANDROID_ROOT/droid-local-repo/$DEVICE
-sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-install zypper ref
+makepkg "mce-plugin-libhybris" "mce-plugin-libhybris" "mce-plugin-libhybris" "nemomobile"
