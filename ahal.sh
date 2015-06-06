@@ -48,17 +48,6 @@ sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-install zypper install droid-hal-$DEVICE
 mkdir -p $MER_ROOT/devel/mer-hybris
 cd $MER_ROOT/devel/mer-hybris
 
-PKG=libhybris
-SPEC=$PKG
-git clone https://github.com/mer-hybris/$PKG.git
-cd $PKG
-mb2 -s rpm/$SPEC.spec -t $VENDOR-$DEVICE-armv7hl build
-mkdir -p $ANDROID_ROOT/droid-local-repo/$DEVICE/$PKG/
-rm -f $ANDROID_ROOT/droid-local-repo/$DEVICE/$PKG/*.rpm
-mv RPMS/*.rpm $ANDROID_ROOT/droid-local-repo/$DEVICE/$PKG
-createrepo $ANDROID_ROOT/droid-local-repo/$DEVICE
-sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-install zypper ref
-sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-build zypper rm mesa-llvmpipe
 
 function makepkg {
 	unset PKG
@@ -93,7 +82,9 @@ function makepkg {
 }
 
 makepkg "libhybris"
+sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-build zypper rm mesa-llvmpipe
 
+#makepkg "qt5-qpa-hwcomposer-plugin" "qt5-qpa-hwcomposer-plugin" "qt5-qpa-hwcomposer_plugin" "maikelwever"
 makepkg "qt5-qpa-hwcomposer-plugin"
 makepkg "sensorfw" "sensorfw-qt5-hybris" "hybris-libsensorfw-gt5" "mer-packages"
 makepkg "ngfd-plugin-droid-vibrator"

@@ -21,7 +21,4 @@
  <remove-project name="mer-hybris/droid-hal-device" />
  <project path="rpm" name="maikelwever/droid-hal-device" revision="hybris-10.1-huashan"/>
 
- <!--<remove-project name="mer-hybris/android_hardware_qcom_display-caf" />
- <project path="hardware/qcom/display-caf" name="oleid/android_hardware_qcom_display-caf" revision="cm-11.0"/>-->
-
 </manifest>

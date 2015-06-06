@@ -72,7 +72,7 @@ unset DEVICE_SETUP_SCRIPT
 
 
   source build/envsetup.sh
-  #export USE_CCACHE=1
+  export USE_CCACHE=1
   breakfast $DEVICE
 
   ######################################
