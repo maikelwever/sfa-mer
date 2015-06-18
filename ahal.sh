@@ -84,8 +84,8 @@ function makepkg {
 makepkg "libhybris"
 sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-build zypper rm mesa-llvmpipe
 
-#makepkg "qt5-qpa-hwcomposer-plugin" "qt5-qpa-hwcomposer-plugin" "qt5-qpa-hwcomposer_plugin" "maikelwever"
-makepkg "qt5-qpa-hwcomposer-plugin"
+makepkg "qt5-qpa-hwcomposer-plugin" "qt5-qpa-hwcomposer-plugin" "qt5-qpa-hwcomposer_plugin" "maikelwever"
+#makepkg "qt5-qpa-hwcomposer-plugin"
 makepkg "sensorfw" "sensorfw-qt5-hybris" "hybris-libsensorfw-gt5" "mer-packages"
 makepkg "ngfd-plugin-droid-vibrator"
 makepkg "qt5-feedback-haptics-droid-vibrator"
