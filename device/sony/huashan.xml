@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
 
-    <project path="device/sony/huashan" name="maikelwever/android_device_sony_huashan" revision="cm-10.1"/>
-    <project path="kernel/sony/msm8960t" name="maikelwever/android_kernel_sony_msm8960t" revision="cm-10.1"/>
-    <project path="hardware/sony/DASH" name="CyanogenMod/android_hardware_sony_DASH" revision="cm-10.1"/>
+  <project name="maikelwever/android_device_sony_huashan" path="device/sony/huashan" remote="github" revision="cm-12.1" />
+  <project name="CyanogenMod/android_device_sony_msm8960-common" path="device/sony/msm8960-common" remote="github" revision="cm-12.1" />
+  <project name="maikelwever/android_kernel_sony_msm8x60" path="kernel/sony/msm8x60" remote="github" revision="cm-12.1" />
+  <project name="CyanogenMod/android_hardware_qcom_fm" path="hardware/qcom/fm" remote="github" revision="cm-12.1" />
+  <project name="CyanogenMod/android_hardware_sony_DASH" path="hardware/sony/DASH" remote="github" revision="cm-12.1" />
+  <project name="CyanogenMod/android_device_sony_common" path="device/sony/common" remote="github" revision="cm-12.1" />
+  <project name="CyanogenMod/android_device_qcom_common" path="device/qcom/common" remote="github" revision="cm-12.1" />
 
-    <project path="vendor/sony" name="TheMuppets/proprietary_vendor_sony" revision="cm-10.1"/>
-
-    <project path="external/koush/Superuser" name="CyanogenMod/Superuser" />
-    <project path="external/sqlite" name="CyanogenMod/android_external_sqlite" />
-    <project path="external/elfutils" name="CyanogenMod/android_external_elfutils" />
+    <project path="vendor/sony" name="TheMuppets/proprietary_vendor_sony" revision="cm-12.1"/>
 
     <remove-project name="mer-hybris/hybris-boot" />
-    <project path="hybris/hybris-boot" name="maikelwever/hybris-boot" revision="hybris-10.1-huashan"/>
-
+    <project path="hybris/hybris-boot" name="maikelwever/hybris-boot" revision="hybris-12.1-huashan"/>
     <remove-project name="mer-hybris/droid-hal-device" />
-    <project path="rpm" name="maikelwever/droid-hal-device" revision="hybris-10.1-huashan"/>
+    <project path="rpm" name="maikelwever/droid-hal-device" revision="hybris-12.1-huashan"/>
 
-    <project path="hardware/qcom/display-caf" name="mer-hybris/android_hardware_qcom_display-caf" groups="caf" revision="hybris-11.0-44S"/>
 
 </manifest>
