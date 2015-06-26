@@ -72,7 +72,8 @@ unset DEVICE_SETUP_SCRIPT
 
 
   source build/envsetup.sh
-  export USE_CCACHE=1
+  #export USE_CCACHE=1
+  prebuilts/misc/linux-x86/ccache/ccache -M 10G
   breakfast $DEVICE
 
   ######################################
