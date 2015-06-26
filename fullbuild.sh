@@ -134,6 +134,9 @@ test -n "$EXTRA_REPO"       && echo "  EXTRA_REPO=$EXTRA_REPO          "
 test -n "$TARGET"           && echo "  TARGET=$TARGET          "
 
 
+test -n "\!$ANDROID_ROOT"           && export ANDROID_ROOT=$MER_ROOT/android/droid
+
+
 [ -f ~/.hadk.env ] && source ~/.hadk.env
 
 # got to think a little more on the organisation and workflow of a multidevice setup
